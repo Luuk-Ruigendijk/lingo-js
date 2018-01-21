@@ -478,3 +478,113 @@ var words = [
 	"zeker",
 	"zever",
 	"zeeen"];
+
+var random = Math.floor( Math.random() * words.length);
+
+var attempt = 0;
+
+console.log(random);
+
+var answer = words[random];
+
+var answerArray = answer.split('');
+
+console.log(answer);
+
+var checkBtn = document.getElementById('check');
+checkBtn.setAttribute("onclick", "check();")
+
+var correctness = 0;
+
+var firstLetter = document.getElementById("letter0_0");
+
+var secondFirstLetter = document.getElementById("letter1_0");
+
+var thirdFirstLetter = document.getElementById("letter2_0");
+
+var fourthFirstLetter = document.getElementById("letter3_0");
+
+var fifthFirstLetter = document.getElementById("letter4_0");
+
+firstLetter.value = answerArray[0]
+
+secondFirstLetter.value = answerArray[0]
+
+thirdFirstLetter.value = answerArray[0]
+
+fourthFirstLetter.value = answerArray[0]
+
+fifthFirstLetter.value = answerArray[0]
+
+firstLetter.style.backgroundColor = "red";
+
+secondFirstLetter.style.backgroundColor = "red";
+
+thirdFirstLetter.style.backgroundColor = "red";
+
+fourthFirstLetter.style.backgroundColor = "red";
+
+fifthFirstLetter.style.backgroundColor = "red";
+
+var l = 0
+
+var currentRow = 0;
+
+var typedWord = '';
+
+function getTypedWord()
+{
+	for (var i = 0; i < 5; i++) {
+		typedWord += document.getElementById("letter"+currentRow+"_"+i).value;
+	}
+
+	console.log(typedWord);
+}
+
+function check()
+{	 
+	getTypedWord();
+	if(attempt<=4){
+		var tempArray = answerArray.slice();
+		correctness = 0;
+console.log(tempArray)
+//console.log("tempArray: "+tempArray);
+
+		for(var i = 0; i <=4; i++){
+
+		if(typedWord[i] === tempArray[i]){
+				document.getElementById("letter"+currentRow+"_"+i).style.backgroundColor = "red";
+				correctness++
+				delete tempArray[i];
+			}
+		}
+console.log(tempArray.length)
+		for (var i = 0; i <= 4; i++) {
+			for(var j = 0; j <=4; j++){
+				console.log(tempArray.length)
+				if(i!=j){
+						if(typedWord[i] === tempArray[j]) {
+						
+						document.getElementById("letter"+currentRow+"_"+i).style.backgroundColor = "yellow";
+						delete tempArray[j];
+						//console.log(input.value);
+					}
+				}
+				
+			}
+		}
+
+		currentRow++;
+		
+
+
+		if (correctness<=4 && attempt==4) {alert("you lost!"), location.reload();}
+		if (correctness==5) {alert("you won!")}
+	}
+	
+	else(alert("you lost!"), location.reload())
+
+
+	attempt++
+	l+=5
+}
